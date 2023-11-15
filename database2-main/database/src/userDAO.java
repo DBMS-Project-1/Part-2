@@ -288,7 +288,7 @@ public class userDAO
                 "drop database if exists testdb; ",
                 "create database testdb; ",
                 "use testdb; ",
-                "drop table if exists Users; ",
+                //"drop table if exists Users; ", //shouldnt need this because dropping database should delete everything
                 ("CREATE TABLE if not exists Users( " +
                         "id INTEGER AUTO_INCREMENT PRIMARY KEY, " +
                         "firstName VARCHAR(50), " +
@@ -296,7 +296,26 @@ public class userDAO
                         "creditCardNum CHAR(16), " +
                         "password VARCHAR(20) NOT NULL, " +
                         "email VARCHAR(50) UNIQUE " +
-                        "); ")
+                        "); "),
+                ("CREATE TABLE if not exists Quotes( " +
+                        "id INTEGER AUTO_INCREMENT PRIMARY KEY," +
+                		"contractorid INTEGER," + 
+                        "clientid INTEGER," +
+                		"price DOUBLE," +
+                        "schedulestart DATETIME," +
+                		"scheduleend DATETIME," + 
+                        "FOREIGN KEY (contractorid) references Users(id)," +
+                		"FOREIGN KEY (clientid) references Users(id)" +
+                        "); "),
+                ("CREATE TABLE if not exists Trees( " +
+                        "id INTEGER AUTO_INCREMENT PRIMARY KEY," +
+                		"quoteid INTEGER," + 
+                        "size DOUBLE," +
+                		"height DOUBLE," +
+                        "distanceFromHouse DOUBLE," +
+                		"FOREIGN KEY (quoteid) references Quotes(id)" +
+                        ");")
+                
         };
 
         String[] TUPLES = {
