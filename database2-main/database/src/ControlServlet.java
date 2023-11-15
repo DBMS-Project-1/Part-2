@@ -17,12 +17,16 @@ import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.sql.PreparedStatement;
 
 
 public class ControlServlet extends HttpServlet {
 	    private static final long serialVersionUID = 1L;
 	    private userDAO userDAO = new userDAO();
+	    private TreesDAO TreesDAO = new TreesDAO();
+	    private QuotesDAO QuotesDAO = new QuotesDAO();
 	    private String currentUser;
 	    private HttpSession session=null;
 	    
@@ -58,6 +62,10 @@ public class ControlServlet extends HttpServlet {
         		System.out.println("Database successfully initialized!");
         		rootPage(request,response,"");
         		break;
+        	case "/listTrees":
+        		System.out.println("The action is: listTrees");
+        		listTree(request,response);
+        		break;
         	case "/root":
         		rootPage(request,response, "");
         		break;
@@ -68,13 +76,13 @@ public class ControlServlet extends HttpServlet {
                  System.out.println("The action is: list");
                  listUser(request, response);           	
                  break;
- 	    	case "/listQuotes":
-    			System.out.println("The action is: listQuotes");
-    			listQuote(request, response);
-    			break;
  	    	case "/submitQuote":
     			System.out.println("The action is: submitQuote");
-    			submitQuote(request,response);
+    			activityPage(request,response, "");
+    			break;
+ 	    	case "/insertQuote":
+    			System.out.println("The action is: insertQuote");
+    			insertQuote(request,response);
     			break;
               
 	    	}
@@ -97,6 +105,19 @@ public class ControlServlet extends HttpServlet {
 	     
 	        System.out.println("listPeople finished: 111111111111111111111111111111111111");
 	    }
+	    
+	    private void listTree(HttpServletRequest request, HttpServletResponse response)
+	            throws SQLException, IOException, ServletException {
+	        System.out.println("listTree started: 00000000000000000000000000000000000");
+
+	     
+	        List<Trees> listTree = TreesDAO.listAllTrees();
+	        request.setAttribute("listTree", listTree);       
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("TreeList.jsp");       
+	        dispatcher.forward(request, response);
+	     
+	        System.out.println("listTree finished: 111111111111111111111111111111111111");
+	    }
 	    	        
 	    private void rootPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{
 	    	System.out.println("root view");
@@ -110,48 +131,37 @@ public class ControlServlet extends HttpServlet {
 	    }
 	    
 	    
-	    protected void submitQuote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-	        String num_of_treesStr = request.getParameter("num_of_trees");
-	        String budgetStr = request.getParameter("budget");
-
-	        int num_of_trees = 0; 	        
-	        double budget = 0;
-
-	       
-	        if (num_of_treesStr != null && budgetStr != null) {
-	            try {
-	             
-	            	num_of_trees = Integer.parseInt(num_of_treesStr);
-	            	budget = Double.parseDouble(budgetStr);
-
-	                
-	                //Quote quote = new Quote(num_of_trees, budget);
-
-	               
-	                //QuoteDAO quoteDAO = new QuoteDAO(); 
-	                //quoteDAO.insert(quote); 
+	    private void activityPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException {
+	    	System.out.println("Acitivity page");
+	    	double size = Double.parseDouble(request.getParameter("size"));
+	        double height = Double.parseDouble(request.getParameter("height"));
+	        double distanceFromHouse = Double.parseDouble(request.getParameter("distanceFromHouse"));
 
 
-	            } catch (NumberFormatException e) {
-	                request.setAttribute("error", "Invalid budget. Please enter a valid number.");
-	                request.getRequestDispatcher("activity.jsp").forward(request, response);
-	            }
-	        } else {
-	            request.setAttribute("error", "Invalid data. Please fill out all fields.");
-	            request.getRequestDispatcher("quoteForm.jsp").forward(request, response);
-	        }
+	        // Create a new Tree instance
+	        Trees tree = new Trees(size, height, distanceFromHouse);
+
+	        TreesDAO.insertTree(tree); // Set the Quote ID for the Tree
+
+	        
+	        response.sendRedirect("activityPage.jsp");
 	    }
 	    
-	    private void listQuote(HttpServletRequest request, HttpServletResponse response) 
-	    		throws SQLException, IOException, ServletException {
-	        System.out.println("listQuote started: 00000000000000000000000000000000000");
+	    private void insertQuote(HttpServletRequest request, HttpServletResponse response) 
+	    		throws SQLException, IOException, ServletException, ParseException {
+	    	
+	    	int clientId = Integer.parseInt(request.getParameter("clientId"));
+	    	double price = Double.parseDouble(request.getParameter("price"));
+	    	
+	    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	    	Date scheduleStart = format.parse(request.getParameter("scheduleStart"));
+	    	Date scheduleEnd = format.parse(request.getParameter("scheduleEnd"));
+
+	        Quotes quote = new Quotes(price, scheduleStart, scheduleEnd);
+	        QuotesDAO.insertQuote(quote);
+	        response.sendRedirect("davidSmith.jsp");
 	        
-	        //List<Quote> listQuote = QuoteDAO.listAllQuotes();
-	        //request.setAttribute("listQuote", listQuote);
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("QuoteList.jsp");
-	        dispatcher.forward(request, response);
-	        
-	        System.out.println("listQuote finished: 111111111111111111111111111111111111");
+
 
 	    }
 	    
@@ -217,15 +227,7 @@ public class ControlServlet extends HttpServlet {
 	    	currentUser = "";
         		response.sendRedirect("login.jsp");
         	}
-	
-	    
 
-	     
-        
-	    
-	    
-	    
-	    
 	    
 }
 	        

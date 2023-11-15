@@ -112,6 +112,7 @@ public class userDAO
         }
     }
 
+
     public void insert(user user) throws SQLException {
         connect_func("root", "pass1234");
 

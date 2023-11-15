@@ -4,7 +4,7 @@
     
 <!DOCTYPE html>
 <html>
-<<head>
+<head>
     <meta charset="UTF-8">
     <title>Request a Quote</title>
 </head>
@@ -13,12 +13,15 @@
         <h1>Request a Quote</h1>
         <form action="submitQuote" method="post">
 
-            <label for="product">Number of Trees:</label>
-            <input type="text" id="product" name="num_of_trees" required><br><br>
+            <label for="product">Size: </label>
+            <input type="text" id="product" name="size" required><br><br>
 
-            <label for="quantity">Budget:</label>
-            <input type="number" id="quantity" name="budget" required><br><br>
+            <label for="product">Height: </label>
+            <input type="number" id="quantity" name="height" required><br><br>
 
+			<label for="product">Distance from House: </label>
+            <input type="number" id="quantity" name="distanceFromHouse" required><br><br>
+            
             <input type="submit" value="Submit Quote">
         </form>
     </center>
