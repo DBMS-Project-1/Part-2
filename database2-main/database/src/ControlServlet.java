@@ -133,18 +133,25 @@ public class ControlServlet extends HttpServlet {
 	    
 	    private void activityPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException {
 	    	System.out.println("Acitivity page");
+	        int userId = userDAO.getUserByEmail(currentUser);
+	        Quotes quote = new Quotes(2, userId);
+	        QuotesDAO.insertQuoteEmpty(quote);
+	        int userId2 = QuotesDAO.getIDByUserID(userId);
+	        System.out.println("insertQuoteEmpty");
+	        System.out.println("I am hereee activityPage");
+	        
 	    	double size = Double.parseDouble(request.getParameter("size"));
 	        double height = Double.parseDouble(request.getParameter("height"));
 	        double distanceFromHouse = Double.parseDouble(request.getParameter("distanceFromHouse"));
 
 
 	        // Create a new Tree instance
-	        Trees tree = new Trees(size, height, distanceFromHouse);
+	        Trees tree = new Trees(userId2, size, height, distanceFromHouse);
 
 	        TreesDAO.insertTree(tree); // Set the Quote ID for the Tree
 
 	        
-	        response.sendRedirect("activityPage.jsp");
+	        response.sendRedirect("activitypage.jsp");
 	    }
 	    
 	    private void insertQuote(HttpServletRequest request, HttpServletResponse response) 
@@ -158,7 +165,7 @@ public class ControlServlet extends HttpServlet {
 	    	Date scheduleEnd = format.parse(request.getParameter("scheduleEnd"));
 
 	        Quotes quote = new Quotes(price, scheduleStart, scheduleEnd);
-	        QuotesDAO.insertQuote(quote);
+	        QuotesDAO.insertQuote(quote, clientId);
 	        response.sendRedirect("davidSmith.jsp");
 	        
 

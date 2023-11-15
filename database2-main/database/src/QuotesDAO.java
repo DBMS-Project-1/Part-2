@@ -46,20 +46,64 @@ public class QuotesDAO {
             System.out.println(connect);
         }
     }
-    
-    // Save a Quote to the database
-    public void insertQuote(Quotes quote) throws SQLException {
-    	connect_func("root", "pass1234");
-        String query = "INSERT INTO Quotes (price, schedulestart, scheduleend) VALUES (?, ?, ?)";
+    public int insertQuoteEmpty(Quotes quote) throws SQLException {
+        connect_func("root", "pass1234");
+        String query = "INSERT INTO Quotes (contractorid, clientid) VALUES (?, ?)";
+        int id = -1;
+
+        try (PreparedStatement pstmt = connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setInt(1, quote.getContractorId());
+            pstmt.setInt(2, quote.getClientId());
+
+
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating quote failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    id = generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating quote failed, no ID obtained.");
+                }
+            }
+        }
+        System.out.println("The generated id is: " + id);
+        return id;
+    }
+
+    public void insertQuote(Quotes quote, int clientId) throws SQLException {
+        connect_func("root", "pass1234");
+        String query = "UPDATE Quotes SET price = ?, schedulestart = ?, scheduleend = ? WHERE clientid = ?";
         try (PreparedStatement pstmt = connect.prepareStatement(query)) {
             pstmt.setDouble(1, quote.getPrice());
             pstmt.setTimestamp(2, new java.sql.Timestamp(quote.getScheduleStart().getTime()));
             pstmt.setTimestamp(3, new java.sql.Timestamp(quote.getScheduleEnd().getTime()));
+            pstmt.setInt(4, clientId);
 
             pstmt.executeUpdate();
         }
     }
+
     
+    public int getIDByUserID(int userID) throws SQLException {
+        connect_func("root", "pass1234");
+        String query = "SELECT id FROM Quotes WHERE clientid = ?";
+        int id = -1;
+
+        try (PreparedStatement pstmt = connect.prepareStatement(query)) {
+            pstmt.setInt(1, userID);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                id = rs.getInt("id");
+            }
+        }
+
+        return id;
+    }
     
     public List<Quotes> listAllQuotes() throws SQLException {
         List<Quotes> listQuotes = new ArrayList<>();        

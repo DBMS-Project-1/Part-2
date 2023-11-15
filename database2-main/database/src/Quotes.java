@@ -17,9 +17,14 @@ public class Quotes {
     }
 
     public Quotes(double price, Date scheduleStart, Date scheduleEnd) {
-        this.price = price;
+    	this.price = price;
         this.scheduleStart = scheduleStart;
         this.scheduleEnd = scheduleEnd;
+    }
+    
+    public Quotes(int contractorId, int clientId) {
+        this.contractorId = contractorId;
+        this.clientId = clientId;
     }
 
     // getter and setter methods

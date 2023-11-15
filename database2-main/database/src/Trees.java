@@ -10,8 +10,8 @@ public class Trees {
     }
 
 
-    public Trees(double size, double height, double distanceFromHouse) {
-
+    public Trees(int quoteId,double size, double height, double distanceFromHouse) {
+    	this.quoteId = quoteId;
         this.size = size;
         this.height = height;
         this.distanceFromHouse = distanceFromHouse;

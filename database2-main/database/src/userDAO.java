@@ -79,6 +79,23 @@ public class userDAO
         }
     }
     
+    public int getUserByEmail(String email) throws SQLException {
+        connect_func("root", "pass1234");
+        String query = "SELECT id FROM Users WHERE email = ?";
+        int id = -1;
+
+        try (PreparedStatement pstmt = connect.prepareStatement(query)) {
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                id = rs.getInt("id");
+            }
+        }
+
+        return id;
+    }
+    
     public List<user> listAllUsers() throws SQLException {
         List<user> listUser = new ArrayList<>();        
         String sql = "SELECT * FROM Users";      

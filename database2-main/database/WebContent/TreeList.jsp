@@ -32,14 +32,15 @@
         <table border="1" cellpadding="5">
             <caption><h2>List of Trees</h2></caption>
             <tr>
+            	<th>Quote ID</th>
 				<th>Size</th>
                 <th>Height</th>
                 <th>Distance from House</th>
 
-
             </tr>
             <c:forEach var="tree" items="${listTree}">
                 <tr style="text-align:center">
+                	<td><c:out value="${tree.quoteId}" /></td>
                     <td><c:out value="${tree.size}" /></td>
                     <td><c:out value="${tree.height}" /></td>
                     <td><c:out value="${tree.distanceFromHouse}" /></td>

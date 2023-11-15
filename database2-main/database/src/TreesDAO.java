@@ -49,11 +49,12 @@ public class TreesDAO {
     public void insertTree(Trees tree) throws SQLException {
         connect_func("root", "pass1234");
 
-        String query = "INSERT INTO Trees (size, height, distanceFromHouse) VALUES (?, ?, ?)";
+        String query = "INSERT INTO Trees (quoteid, size, height, distanceFromHouse) VALUES (?, ?, ?, ?)";
         try (PreparedStatement pstmt = connect.prepareStatement(query)) {
-            pstmt.setDouble(1, tree.getSize());
-            pstmt.setDouble(2, tree.getHeight());
-            pstmt.setDouble(3, tree.getDistanceFromHouse());
+        	pstmt.setDouble(1, tree.getQuoteId());
+            pstmt.setDouble(2, tree.getSize());
+            pstmt.setDouble(3, tree.getHeight());
+            pstmt.setDouble(4, tree.getDistanceFromHouse());
 
             pstmt.executeUpdate();
         }
@@ -65,14 +66,15 @@ public class TreesDAO {
         connect_func();      
         preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
-        
+        System.out.println("I am hereee listAllTrees");
         while (resultSet.next()) {
+        	int quoteID = resultSet.getInt("quoteid");
             double size = resultSet.getDouble("size");
             double height = resultSet.getDouble("height");
             double distanceFromHouse = resultSet.getDouble("distanceFromHouse");
 
 
-            Trees tree = new Trees(size, height, distanceFromHouse);
+            Trees tree = new Trees(quoteID, size, height, distanceFromHouse);
             listTree.add(tree);
         }        
 
