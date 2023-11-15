@@ -74,7 +74,7 @@ public class QuotesDAO {
         return id;
     }
 
-    public void insertQuote(Quotes quote, int clientId) throws SQLException {
+    public void insertQuote(Quotes quote) throws SQLException {
         connect_func("root", "pass1234");
         String query = "UPDATE Quotes SET price = ?, schedulestart = ?, scheduleend = ? WHERE clientid = ?";
         try (PreparedStatement pstmt = connect.prepareStatement(query)) {

@@ -165,7 +165,7 @@ public class ControlServlet extends HttpServlet {
 	    	Date scheduleEnd = format.parse(request.getParameter("scheduleEnd"));
 
 	        Quotes quote = new Quotes(price, scheduleStart, scheduleEnd);
-	        QuotesDAO.insertQuote(quote, clientId);
+	        QuotesDAO.insertQuote(quote);
 	        response.sendRedirect("davidSmith.jsp");
 	        
 
