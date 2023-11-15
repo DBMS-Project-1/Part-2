@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 public class QuotesDAO {
 	private static final long serialVersionUID = 1L;
@@ -70,22 +71,24 @@ public class QuotesDAO {
                 }
             }
         }
-        System.out.println("The generated id is: " + id);
+        System.out.println("The Quotes generated id is: " + id);
         return id;
     }
 
-    public void insertQuote(Quotes quote) throws SQLException {
+    public void updateQuotes(int id, double price, Date scheduleStart, Date scheduleEnd) throws SQLException {
         connect_func("root", "pass1234");
-        String query = "UPDATE Quotes SET price = ?, schedulestart = ?, scheduleend = ? WHERE clientid = ?";
+        System.out.println("I am hereee updateQuotes");
+        String query = "UPDATE Quotes SET price = ?, schedulestart = ?, scheduleend = ? WHERE id = ?";
         try (PreparedStatement pstmt = connect.prepareStatement(query)) {
-            pstmt.setDouble(1, quote.getPrice());
-            pstmt.setTimestamp(2, new java.sql.Timestamp(quote.getScheduleStart().getTime()));
-            pstmt.setTimestamp(3, new java.sql.Timestamp(quote.getScheduleEnd().getTime()));
-            pstmt.setInt(4, quote.getClientId()); //maybe works need to find a way to get client id
+            pstmt.setDouble(1, price);
+            pstmt.setTimestamp(2, new java.sql.Timestamp(scheduleStart.getTime()));
+            pstmt.setTimestamp(3, new java.sql.Timestamp(scheduleEnd.getTime()));
+            pstmt.setInt(4, id);
 
             pstmt.executeUpdate();
         }
     }
+
 
     
     public int getIDByUserID(int userID) throws SQLException {

@@ -135,8 +135,8 @@ public class ControlServlet extends HttpServlet {
 	    	System.out.println("Acitivity page");
 	        int userId = userDAO.getUserByEmail(currentUser);
 	        Quotes quote = new Quotes(2, userId);
-	        QuotesDAO.insertQuoteEmpty(quote);
-	        int userId2 = QuotesDAO.getIDByUserID(userId);
+	        int quoteID = QuotesDAO.insertQuoteEmpty(quote);
+	        //int userId2 = QuotesDAO.getIDByUserID(userId);
 	        System.out.println("insertQuoteEmpty");
 	        System.out.println("I am hereee activityPage");
 	        
@@ -146,7 +146,7 @@ public class ControlServlet extends HttpServlet {
 
 
 	        // Create a new Tree instance
-	        Trees tree = new Trees(userId2, size, height, distanceFromHouse);
+	        Trees tree = new Trees(quoteID, size, height, distanceFromHouse);
 
 	        TreesDAO.insertTree(tree); // Set the Quote ID for the Tree
 
@@ -164,8 +164,8 @@ public class ControlServlet extends HttpServlet {
 	    	Date scheduleStart = format.parse(request.getParameter("scheduleStart"));
 	    	Date scheduleEnd = format.parse(request.getParameter("scheduleEnd"));
 
-	        Quotes quote = new Quotes(price, scheduleStart, scheduleEnd);
-	        QuotesDAO.insertQuote(quote);
+	        
+	        QuotesDAO.updateQuotes(clientId, price, scheduleStart, scheduleEnd);
 	        response.sendRedirect("davidSmith.jsp");
 	        
 
