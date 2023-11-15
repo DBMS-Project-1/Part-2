@@ -81,7 +81,7 @@ public class QuotesDAO {
             pstmt.setDouble(1, quote.getPrice());
             pstmt.setTimestamp(2, new java.sql.Timestamp(quote.getScheduleStart().getTime()));
             pstmt.setTimestamp(3, new java.sql.Timestamp(quote.getScheduleEnd().getTime()));
-            pstmt.setInt(4, clientId);
+            pstmt.setInt(4, quote.getClientId()); //maybe works need to find a way to get client id
 
             pstmt.executeUpdate();
         }
