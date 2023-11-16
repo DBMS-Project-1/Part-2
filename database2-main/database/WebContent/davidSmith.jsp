@@ -15,6 +15,10 @@
 		<input type = "submit" value = "List Trees"/>
 	</form>
 	<a href="login.jsp"target ="_self" > logout</a><br><br> 
+	
+	<form action="test">
+		<input type="submit" value="test">
+	</form>
 
 <h1>List all Trees</h1>
     <div align="center">

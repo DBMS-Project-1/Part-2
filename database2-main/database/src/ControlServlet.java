@@ -84,6 +84,9 @@ public class ControlServlet extends HttpServlet {
     			System.out.println("The action is: insertQuote");
     			insertQuote(request,response);
     			break;
+ 	    	case "/test":
+ 	    		System.out.println("The action is: test");
+ 	    		break;
               
 	    	}
         	
