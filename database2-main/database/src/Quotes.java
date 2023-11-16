@@ -1,4 +1,6 @@
 import java.util.Date;
+//import java.lang.String;
+
 
 public class Quotes {
     protected int id;
@@ -7,6 +9,12 @@ public class Quotes {
     protected double price;
     protected Date scheduleStart;
     protected Date scheduleEnd;
+    
+    //new variables for acceptance and resopnse
+    protected boolean userAccept;
+    protected boolean davidAccept;
+    protected String userResponse;
+    protected String davidResponse;
 
     // constructors
     public Quotes() {
@@ -75,4 +83,39 @@ public class Quotes {
     public void setScheduleEnd(Date scheduleEnd) {
         this.scheduleEnd = scheduleEnd;
     }
+    
+    
+    //setters and getters for acceptance and response
+    public void setUserAccept(boolean userAccept) {
+    	this.userAccept = userAccept;
+    }
+    
+    public boolean getUserAccept() {
+    	return userAccept;
+    }
+    
+    public void setDavidAccept(boolean davidAccept) {
+    	this.davidAccept = davidAccept;
+    }
+    
+    public boolean getDavidAccept() {
+    	return davidAccept;
+    }
+    
+    public void setUserResponse(String userResponse) {
+    	this.userResponse = userResponse;
+    }
+    
+    public String getUserResponse() {
+    	return userResponse;
+    }
+    
+    public void setDavidResponse(String davidResponse) {
+    	this.davidResponse = davidResponse;
+    }
+    
+    public String getDavidResponse() {
+    	return davidResponse;
+    }
+    
 }

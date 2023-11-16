@@ -302,7 +302,15 @@ public class userDAO
                 		"contractorid INTEGER," + 
                         "clientid INTEGER," +
                 		"price DOUBLE," +
-                        "schedulestart DATETIME," +
+                        
+                		//values for acceptance and response
+                		"userAccept BOOL," +
+                        "davidAccept BOOL," +
+                		"userResponse TEXT(200)," +
+                        "davidResponse TEXT(200)," +
+                		
+                        
+                        "schedulestart DATETIME," + 
                 		"scheduleend DATETIME," + 
                         "FOREIGN KEY (contractorid) references Users(id)," +
                 		"FOREIGN KEY (clientid) references Users(id)" +

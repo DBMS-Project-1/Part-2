@@ -137,6 +137,59 @@ public class QuotesDAO {
         	connect.close();
         }
     }
+    
+    //public void updateDavidResponse(String response) 
+    	
+    
+    
+    //public void updateUserResponse();
+    
+    
+    //might work idk yet might have to change this later
+    public void updateResponse(String response, int userId, int quoteId) throws SQLException {
+    	connect_func("root", "pass1234");
+    	String sql = "UPDATE Quotes SET davidResponse = ?, userResponse = ? WHERE id = ?";
+    	
+    	
+    	
+    	try (PreparedStatement statement = connect.prepareStatement(sql)) {
+    		if (userId == 2) {
+    			statement.setString(1, response);
+    			statement.setString(2, "");
+    		}
+    		else {
+    			statement.setString(1, "");
+    			statement.setString(2, response);
+    		}
+    		
+    		statement.executeUpdate();
+    		
+    	}
+    	
+    	//might need to close prepared statement
+    	statement.close();
+    	disconnect();
+    		
 
-    // Other methods for fetching, updating, or deleting Quotes can be added here
+    }
+    
+    
+    public void updateAccept(boolean accept, int userId, int quoteId) throws SQLException {
+    	connect_func("root", "pass1234");
+    	String sql;
+    	
+    	if (userId == 2)
+    		sql = "UPDATE Quotes SET davidAccept = ? WHERE id = ?";
+    	else
+    		sql = "UPDATE Quotes SET userAccept = ? WHERE id = ?";
+    	
+    	try (PreparedStatement statement = connect.prepareStatement(sql)) {
+    		statement.setBoolean(1, accept);
+    	}
+    	
+    	statement.close();
+    	disconnect();
+    	
+    }
+
 }
