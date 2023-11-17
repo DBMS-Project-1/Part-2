@@ -92,12 +92,24 @@ public class QuotesDAO {
     public void updateUserReply(int id, Boolean isAccepted, String Reply) throws SQLException {
         connect_func("root", "pass1234");
         System.out.println("I am hereee updateUserReply");
-        String query = "UPDATE Quotes SET price = ?, schedulestart = ?, scheduleend = ? WHERE id = ?";
+        String query = "UPDATE Quotes SET userAccept = ?, userResponse = ? WHERE id = ?";
         try (PreparedStatement pstmt = connect.prepareStatement(query)) {
-            pstmt.setDouble(1, price);
-            pstmt.setTimestamp(2, new java.sql.Timestamp(scheduleStart.getTime()));
-            pstmt.setTimestamp(3, new java.sql.Timestamp(scheduleEnd.getTime()));
-            pstmt.setInt(4, id);
+            pstmt.setBoolean(1, isAccepted);
+            pstmt.setString(2, Reply);
+            pstmt.setInt(3, id);
+
+            pstmt.executeUpdate();
+        }
+    }
+    
+    public void updateDavidReply(int id, Boolean isAccepted, String Reply) throws SQLException {
+        connect_func("root", "pass1234");
+        System.out.println("I am hereee updateUserReply");
+        String query = "UPDATE Quotes SET davidAccept = ?, davidResponse = ? WHERE id = ?";
+        try (PreparedStatement pstmt = connect.prepareStatement(query)) {
+            pstmt.setBoolean(1, isAccepted);
+            pstmt.setString(2, Reply);
+            pstmt.setInt(3, id);
 
             pstmt.executeUpdate();
         }
