@@ -12,3 +12,11 @@ Instructions to install:
 4) connect Tomcat v9.0 server
 5) run login.jsp on the Tomcat server
 6) login or create an account to view the functionality of the project
+
+
+Hours worked:
+
+Issa Habeeb: 16 hours
+Rory Lange: 13 hours
+
+hours worked together: 4 hours
