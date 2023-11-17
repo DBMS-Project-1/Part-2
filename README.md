@@ -17,6 +17,15 @@ Instructions to install:
 Hours worked:
 
 Issa Habeeb: 16 hours
+
 Rory Lange: 13 hours
 
 hours worked together: 4 hours
+
+we worked together on code (specifically ControlServlet.java) and tables, final frontend output.
+
+Issa:
+sql tables, quotesDAO.java, quotes.java, database, frontend logic and display, backend retrieval.
+
+Rory:
+debugging, list user, list quotes, treesDAO.java, trees.java.
