@@ -100,12 +100,12 @@ public class ControlServlet extends HttpServlet {
     			
  	    	case "/insertUserReply":
     			System.out.println("The action is: insertUserReply");
-    			listDavidQuote(request,response);
+    			insertUserReply(request,response);
     			break;
     			
  	    	case "/insertDavidReply":
     			System.out.println("The action is: insertDavidReply");
-    			listDavidQuote(request,response);
+    			insertDavidReply(request,response);
     			break;
 
 	    	}
@@ -118,20 +118,10 @@ public class ControlServlet extends HttpServlet {
 	    
 	    
 	    
-	    
-	    
-	    private void listUserQuote(HttpServletRequest request, HttpServletResponse response)
-	            throws SQLException, IOException, ServletException {
-	        System.out.println("listUserQuote started: 00000000000000000000000000000000000");
-	        
-	     
-	        List<Quotes> listQuote = QuotesDAO.listUserQuotes();
-	        request.setAttribute("listQuote", listQuote);       
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("listUserQuote.jsp");       
-	        dispatcher.forward(request, response);
-	        
-	        
-	        int id = Integer.parseInt(request.getParameter("id"));
+	    private void insertUserReply(HttpServletRequest request, HttpServletResponse response) 
+	    		throws SQLException, IOException, ServletException, ParseException {
+	    	
+	    	int id = Integer.parseInt(request.getParameter("id"));
 	        String acceptOrDeny = request.getParameter("acceptOrDeny");
 
 	        boolean isAccepted;
@@ -147,8 +137,45 @@ public class ControlServlet extends HttpServlet {
 	        System.out.println("Accept or deny quote: " + acceptOrDeny + ". Reply: " + Reply);
 
 	        QuotesDAO.updateUserReply(id, isAccepted, Reply);
+	        response.sendRedirect("listUserQuotes.jsp");
+
+	    }
+	    
+	    private void insertDavidReply(HttpServletRequest request, HttpServletResponse response) 
+	    		throws SQLException, IOException, ServletException, ParseException {
+	    	
+	    	int id = Integer.parseInt(request.getParameter("id"));
+	        String acceptOrDeny = request.getParameter("acceptOrDeny");
+
+	        boolean isAccepted;
+	       
+	        if (acceptOrDeny.equals("accept")) {
+	        	isAccepted = true;
+	        }
+	        else {
+	        	isAccepted = false;
+	        }
 	        
+	        String Reply = request.getParameter("reply");
+	        System.out.println("Accept or deny quote: " + acceptOrDeny + ". Reply: " + Reply);
+
+	        QuotesDAO.updateUserReply(id, isAccepted, Reply);
+	        response.sendRedirect("listDavidQuotes.jsp");
+
+
+	    }
+	    
+	    
+	    private void listUserQuote(HttpServletRequest request, HttpServletResponse response)
+	            throws SQLException, IOException, ServletException {
+	        System.out.println("listUserQuote started: 00000000000000000000000000000000000");
 	        
+	     
+	        List<Quotes> listQuote = QuotesDAO.listUserQuotes();
+	        request.setAttribute("listQuote", listQuote);       
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("listUserQuote.jsp");       
+	        dispatcher.forward(request, response);
+
 	     
 	        System.out.println("listUserQuote finished: 111111111111111111111111111111111111");
 	    }

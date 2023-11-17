@@ -13,7 +13,7 @@
         <h1>Quote Management</h1>
     </center>
     <div align="center">
-         <form action="insertUserReply" method="post">
+         <form action="insertDavidReply" method="post">
 
 			<label for="product">ID: </label>
             <input type="text" id="product" name="id" required><br><br>
