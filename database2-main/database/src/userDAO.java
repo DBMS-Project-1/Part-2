@@ -296,7 +296,8 @@ public class userDAO
                         "lastName VARCHAR(50), " +
                         "creditCardNum CHAR(16), " +
                         "password VARCHAR(20) NOT NULL, " +
-                        "email VARCHAR(50) UNIQUE " +
+                        "email VARCHAR(50) UNIQUE, " +
+                        "role VARCHAR(20) " +
                         "); "),
                 ("CREATE TABLE if not exists Quotes( " +
                         "id INTEGER AUTO_INCREMENT PRIMARY KEY," +
@@ -307,8 +308,8 @@ public class userDAO
                 		//values for acceptance and response
                 		"userAccept BOOL," +
                         "davidAccept BOOL," +
-                		"userResponse TEXT(200)," +
-                        "davidResponse TEXT(200)," +
+                		"userResponse VARCHAR(200)," +
+                        "davidResponse VARCHAR(200)," +
                 		
                         
                         "schedulestart DATETIME," + 

@@ -55,8 +55,8 @@
                     <td><c:out value="${quote.id}" /></td>
                     <td><c:out value="${quote.clientId}" /></td>
                     <td><c:out value="${quote.price}" /></td>
-                    <td><c:out value="${quote.schedulestart}" /></td>
-                    <td><c:out value="${quote.scheduleend}" /></td>
+                    <td><c:out value="${quote.scheduleStart}" /></td>
+                    <td><c:out value="${quote.scheduleEnd}" /></td>
                     <td><c:out value="${quote.userAccept}" /></td>
                     <td><c:out value="${quote.davidAccept}" /></td>
                     <td><c:out value="${quote.userResponse}" /></td>

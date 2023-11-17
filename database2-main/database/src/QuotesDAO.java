@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
@@ -143,15 +144,29 @@ public class QuotesDAO {
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
+            int clientId = resultSet.getInt("clientid");
             double price = resultSet.getDouble("price");
-            java.util.Date scheduleStart = new java.util.Date(resultSet.getTimestamp("schedulestart").getTime());
-            java.util.Date scheduleEnd = new java.util.Date(resultSet.getTimestamp("scheduleend").getTime());
+            
+            Timestamp scheduleStartTimestamp = resultSet.getTimestamp("schedulestart");
+            Timestamp scheduleEndTimestamp = resultSet.getTimestamp("scheduleend");
+
+            java.util.Date scheduleStart = null;
+            java.util.Date scheduleEnd = null;
+
+            if (scheduleStartTimestamp != null) {
+                scheduleStart = new java.util.Date(scheduleStartTimestamp.getTime());
+            }
+
+            if (scheduleEndTimestamp != null) {
+                scheduleEnd = new java.util.Date(scheduleEndTimestamp.getTime());
+            }
+            
             boolean userAccept = resultSet.getBoolean("userAccept");
             boolean davidAccept = resultSet.getBoolean("davidAccept");
             String userResponse = resultSet.getString("userResponse");
             String davidResponse = resultSet.getString("davidResponse");
 
-            Quotes quote = new Quotes(id, price, scheduleStart, scheduleEnd, userAccept, davidAccept, userResponse, davidResponse);
+            Quotes quote = new Quotes(id, clientId, price, scheduleStart, scheduleEnd, userAccept, davidAccept, userResponse, davidResponse);
             listQuote.add(quote);
         }
 
@@ -163,19 +178,34 @@ public class QuotesDAO {
     }
 
     
-    public List<Quotes> listDavidQuotes() throws SQLException {
+    public List<Quotes> listDavidQuotes(int currentId) throws SQLException {
         List<Quotes> listQuote = new ArrayList<>();
-        String sql = "SELECT * FROM Quotes";
+        String sql = "SELECT * FROM Quotes WHERE clientid = ?";
         connect_func();
         preparedStatement = connect.prepareStatement(sql);
+        preparedStatement.setInt(1, currentId);
         ResultSet resultSet = preparedStatement.executeQuery();
+        
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
             int clientId = resultSet.getInt("clientid");
             double price = resultSet.getDouble("price");
-            java.util.Date scheduleStart = new java.util.Date(resultSet.getTimestamp("schedulestart").getTime());
-            java.util.Date scheduleEnd = new java.util.Date(resultSet.getTimestamp("scheduleend").getTime());
+            
+            Timestamp scheduleStartTimestamp = resultSet.getTimestamp("schedulestart");
+            Timestamp scheduleEndTimestamp = resultSet.getTimestamp("scheduleend");
+
+            java.util.Date scheduleStart = null;
+            java.util.Date scheduleEnd = null;
+
+            if (scheduleStartTimestamp != null) {
+                scheduleStart = new java.util.Date(scheduleStartTimestamp.getTime());
+            }
+
+            if (scheduleEndTimestamp != null) {
+                scheduleEnd = new java.util.Date(scheduleEndTimestamp.getTime());
+            }
+            
             boolean userAccept = resultSet.getBoolean("userAccept");
             boolean davidAccept = resultSet.getBoolean("davidAccept");
             String userResponse = resultSet.getString("userResponse");

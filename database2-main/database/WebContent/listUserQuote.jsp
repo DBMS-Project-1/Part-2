@@ -40,6 +40,7 @@
             <caption><h2>All User Quote</h2></caption>
             <tr>
             	<th>id</th>
+            	<th>clientID</th>
 				<th>price</th>
 				<th>schedulestart</th>
 				<th>scheduleend</th>
@@ -53,9 +54,10 @@
                 <tr style="text-align:center">
 
                     <td><c:out value="${quote.id}" /></td>
+                    <td><c:out value="${quote.clientId}" /></td>
                     <td><c:out value="${quote.price}" /></td>
-                    <td><c:out value="${quote.schedulestart}" /></td>
-                    <td><c:out value="${quote.scheduleend}" /></td>
+                    <td><c:out value="${quote.scheduleStart}" /></td>
+                    <td><c:out value="${quote.scheduleEnd}" /></td>
                     <td><c:out value="${quote.userAccept}" /></td>
                     <td><c:out value="${quote.davidAccept}" /></td>
                     <td><c:out value="${quote.userResponse}" /></td>
