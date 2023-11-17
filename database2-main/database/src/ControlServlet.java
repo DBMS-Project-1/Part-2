@@ -190,33 +190,9 @@ public class ControlServlet extends HttpServlet {
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("listDavidQuote.jsp");       
 	        dispatcher.forward(request, response);
 	     
-	        
-	        
-	        int id = Integer.parseInt(request.getParameter("id"));
-	        String acceptOrDeny = request.getParameter("acceptOrDeny");
-
-	        boolean isAccepted;
-	       
-	        if (acceptOrDeny.equals("accept")) {
-	        	isAccepted = true;
-	        }
-	        else {
-	        	isAccepted = false;
-	        }
-	        
-	        String Reply = request.getParameter("reply");
-	        System.out.println("Accept or deny quote: " + acceptOrDeny + ". Reply: " + Reply);
-
-	        QuotesDAO.updateDavidReply(id, isAccepted, Reply);
-	        
-	        
 	        System.out.println("listDavidQuote finished: 111111111111111111111111111111111111");
 	    }
 	    	
-	    
-	    
-	    
-	    
 	    
 	    private void listUser(HttpServletRequest request, HttpServletResponse response)
 	            throws SQLException, IOException, ServletException {

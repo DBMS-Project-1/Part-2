@@ -143,7 +143,6 @@ public class QuotesDAO {
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
-            int clientId = resultSet.getInt("clientid");
             double price = resultSet.getDouble("price");
             java.util.Date scheduleStart = new java.util.Date(resultSet.getTimestamp("schedulestart").getTime());
             java.util.Date scheduleEnd = new java.util.Date(resultSet.getTimestamp("scheduleend").getTime());
@@ -152,7 +151,7 @@ public class QuotesDAO {
             String userResponse = resultSet.getString("userResponse");
             String davidResponse = resultSet.getString("davidResponse");
 
-            Quotes quote = new Quotes(id, clientId, price, scheduleStart, scheduleEnd, userAccept, davidAccept, userResponse, davidResponse);
+            Quotes quote = new Quotes(id, price, scheduleStart, scheduleEnd, userAccept, davidAccept, userResponse, davidResponse);
             listQuote.add(quote);
         }
 
@@ -173,6 +172,7 @@ public class QuotesDAO {
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
+            int clientId = resultSet.getInt("clientid");
             double price = resultSet.getDouble("price");
             java.util.Date scheduleStart = new java.util.Date(resultSet.getTimestamp("schedulestart").getTime());
             java.util.Date scheduleEnd = new java.util.Date(resultSet.getTimestamp("scheduleend").getTime());
@@ -181,7 +181,7 @@ public class QuotesDAO {
             String userResponse = resultSet.getString("userResponse");
             String davidResponse = resultSet.getString("davidResponse");
 
-            Quotes quote = new Quotes(id, price, scheduleStart, scheduleEnd, userAccept, davidAccept, userResponse, davidResponse);
+            Quotes quote = new Quotes(id, clientId, price, scheduleStart, scheduleEnd, userAccept, davidAccept, userResponse, davidResponse);
             listQuote.add(quote);
         }
 
