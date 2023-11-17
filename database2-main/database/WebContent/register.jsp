@@ -47,6 +47,19 @@
 					</td>
 				
 				</tr>
+				<li>
+   					 <span class="role-label">ROLES:</span>
+    
+    				<input type="radio" name="role" value="user" id="userRole" checked>
+    				<label for="userRole">User</label>
+    
+    				<input type="radio" name="role" value="root" id="rootRole">
+    				<label for="rootRole">Root</label>
+    
+   					<input type="radio" name="role" value="davidsmith" id="davidsmithRole">
+   					<label for="davidsmithRole">David Smith</label>
+				</li>
+				
 				<tr>
 					<td align="center" colspan="5">
 						<input type="submit" value="Register"/>

@@ -9,6 +9,16 @@
     <title>Request a Quote</title>
 </head>
 <body>
+	<div align = "center">	
+<h1>List all Replies</h1>
+	<form action = "listDavidQuote" method="post">
+		<input type = "submit" value = "List David Reply"/>
+	</form>
+
+	<a href="login.jsp"target ="_self" > logout</a><br><br> 
+</div>	
+	
+	
     <center>
         <h1>Request a Quote</h1>
         <form action="submitQuote" method="post">

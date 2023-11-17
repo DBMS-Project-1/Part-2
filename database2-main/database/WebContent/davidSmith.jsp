@@ -10,34 +10,23 @@
 </head>
 
 <div align = "center">
-	
-	<form action = "listTrees">
+<h1>List all Trees</h1>
+	<form action = "listTrees" method="post">
 		<input type = "submit" value = "List Trees"/>
 	</form>
-	<a href="login.jsp"target ="_self" > logout</a><br><br> 
-	
-	<form action="test">
-		<input type="submit" value="test">
+</div>
+
+
+<div align = "center">
+<h1>List all Quotes</h1>
+	<form action = "listUserQuotes" method="post">
+		<input type = "submit" value = "List Quotes"/>
 	</form>
+	
+	
+	<a href="login.jsp"target ="_self" > logout</a><br><br> 
 
-<h1>List all Trees</h1>
-    <div align="center">
-        <table border="1" cellpadding="6">
-            <>
-                <th>Size</th>
-                <th>Height</th>
-                <th>Distance from House</th>
-
-            </tr>
-            <c:forEach var="tree" items="${listTree}">
-                <tr style="text-align:center">
-                    <td><c:out value="${users.size}" /></td>
-                    <td><c:out value="${users.height}" /></td>
-                    <td><c:out value="${users.distanceFromHouse}" /></td>
-            </c:forEach>
-        </table>
-	</div>
-	</div>
+	
 
 </body>
 </html>

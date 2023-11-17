@@ -110,8 +110,9 @@ public class userDAO
             String creditCardNum = resultSet.getString("creditCardNum");
             String password = resultSet.getString("password");
             String email = resultSet.getString("email");
+            String role = resultSet.getString("role");
 
-            user user = new user(email, firstName, lastName, creditCardNum, password);
+            user user = new user(email, firstName, lastName, creditCardNum, password, role);
             listUser.add(user);
         }        
 

@@ -30,6 +30,29 @@ public class Quotes {
         this.scheduleEnd = scheduleEnd;
     }
     
+    public Quotes (int id, int clientId, double price, Date scheduleStart, Date scheduleEnd, boolean userAccept, boolean davidAccept, String userResponse, String davidResponse) {
+    	this.id = id;
+        this.clientId = clientId;
+        this.price = price;
+        this.scheduleStart = scheduleStart;
+        this.scheduleEnd = scheduleEnd;
+        this.userAccept = userAccept;
+        this.davidAccept = davidAccept;
+        this.userResponse = userResponse;
+        this.davidResponse = davidResponse;
+    }
+    
+    public Quotes (int id, double price, Date scheduleStart, Date scheduleEnd, boolean userAccept, boolean davidAccept, String userResponse, String davidResponse) {
+    	this.id = id;
+        this.price = price;
+        this.scheduleStart = scheduleStart;
+        this.scheduleEnd = scheduleEnd;
+        this.userAccept = userAccept;
+        this.davidAccept = davidAccept;
+        this.userResponse = userResponse;
+        this.davidResponse = davidResponse;
+    }
+    
     public Quotes(int contractorId, int clientId) {
         this.contractorId = contractorId;
         this.clientId = clientId;

@@ -5,6 +5,7 @@ public class user {
     protected String password;
     protected String creditCardNum;
     protected String email;
+    protected String role;
 
     // constructors
     public user() {
@@ -14,22 +15,31 @@ public class user {
         this.email = email;
     }
 	    
-	public user(String email,String firstName, String lastName, String creditCardNum, String password) 
+	public user(String email,String firstName, String lastName, String creditCardNum, String password, String role) 
 	{
-	    this(firstName,lastName,creditCardNum, password);
+	    this(firstName,lastName,creditCardNum, password, role);
 	    this.email = email;
 	}
 	 
 	
-	public user(String firstName, String lastName, String creditCardNum, String password) 
+	public user(String firstName, String lastName, String creditCardNum, String password, String role) 
 	{
 	    this.firstName = firstName;
 	    this.lastName = lastName;
 	    this.creditCardNum = creditCardNum;
 	    this.password = password;
+	    this.role = role;
 	}
 	    
 	// getter and setter methods
+    public int getRole() {
+        return id;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+	
     public int getId() {
         return id;
     }

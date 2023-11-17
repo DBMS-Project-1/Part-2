@@ -88,6 +88,20 @@ public class QuotesDAO {
             pstmt.executeUpdate();
         }
     }
+    
+    public void updateUserReply(int id, Boolean isAccepted, String Reply) throws SQLException {
+        connect_func("root", "pass1234");
+        System.out.println("I am hereee updateUserReply");
+        String query = "UPDATE Quotes SET price = ?, schedulestart = ?, scheduleend = ? WHERE id = ?";
+        try (PreparedStatement pstmt = connect.prepareStatement(query)) {
+            pstmt.setDouble(1, price);
+            pstmt.setTimestamp(2, new java.sql.Timestamp(scheduleStart.getTime()));
+            pstmt.setTimestamp(3, new java.sql.Timestamp(scheduleEnd.getTime()));
+            pstmt.setInt(4, id);
+
+            pstmt.executeUpdate();
+        }
+    }
 
 
     
@@ -108,28 +122,62 @@ public class QuotesDAO {
         return id;
     }
     
-    public List<Quotes> listAllQuotes() throws SQLException {
-        List<Quotes> listQuotes = new ArrayList<>();        
-        String sql = "SELECT * FROM Quotes";      
-        connect_func();      
-        preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
+    public List<Quotes> listUserQuotes() throws SQLException {
+        List<Quotes> listQuote = new ArrayList<>();
+        String sql = "SELECT * FROM Quotes";
+        connect_func();
+        preparedStatement = connect.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
-        
+
         while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            int clientId = resultSet.getInt("clientid");
             double price = resultSet.getDouble("price");
-            java.util.Date scheduleStart = new java.util.Date(resultSet.getDate("scheduleStart").getTime());
-            java.util.Date scheduleEnd = new java.util.Date(resultSet.getDate("scheduleEnd").getTime());
+            java.util.Date scheduleStart = new java.util.Date(resultSet.getTimestamp("schedulestart").getTime());
+            java.util.Date scheduleEnd = new java.util.Date(resultSet.getTimestamp("scheduleend").getTime());
+            boolean userAccept = resultSet.getBoolean("userAccept");
+            boolean davidAccept = resultSet.getBoolean("davidAccept");
+            String userResponse = resultSet.getString("userResponse");
+            String davidResponse = resultSet.getString("davidResponse");
 
-
-            Quotes quote = new Quotes(price, scheduleStart, scheduleEnd);
-            listQuotes.add(quote);
-        }        
+            Quotes quote = new Quotes(id, clientId, price, scheduleStart, scheduleEnd, userAccept, davidAccept, userResponse, davidResponse);
+            listQuote.add(quote);
+        }
 
         resultSet.close();
         preparedStatement.close();
-        disconnect();        
+        disconnect();
 
-        return listQuotes;
+        return listQuote;
+    }
+
+    
+    public List<Quotes> listDavidQuotes() throws SQLException {
+        List<Quotes> listQuote = new ArrayList<>();
+        String sql = "SELECT * FROM Quotes";
+        connect_func();
+        preparedStatement = connect.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            double price = resultSet.getDouble("price");
+            java.util.Date scheduleStart = new java.util.Date(resultSet.getTimestamp("schedulestart").getTime());
+            java.util.Date scheduleEnd = new java.util.Date(resultSet.getTimestamp("scheduleend").getTime());
+            boolean userAccept = resultSet.getBoolean("userAccept");
+            boolean davidAccept = resultSet.getBoolean("davidAccept");
+            String userResponse = resultSet.getString("userResponse");
+            String davidResponse = resultSet.getString("davidResponse");
+
+            Quotes quote = new Quotes(id, price, scheduleStart, scheduleEnd, userAccept, davidAccept, userResponse, davidResponse);
+            listQuote.add(quote);
+        }
+
+        resultSet.close();
+        preparedStatement.close();
+        disconnect();
+
+        return listQuote;
     }
     
     protected void disconnect() throws SQLException {

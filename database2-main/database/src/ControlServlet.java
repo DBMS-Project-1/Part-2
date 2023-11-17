@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.sql.PreparedStatement;
 
 
+
 public class ControlServlet extends HttpServlet {
 	    private static final long serialVersionUID = 1L;
 	    private userDAO userDAO = new userDAO();
@@ -84,10 +85,29 @@ public class ControlServlet extends HttpServlet {
     			System.out.println("The action is: insertQuote");
     			insertQuote(request,response);
     			break;
- 	    	case "/test":
- 	    		System.out.println("The action is: test");
- 	    		break;
-              
+
+
+
+ 	    	case "/listUserQuotes":
+    			System.out.println("The action is: listUserQuote");
+    			listUserQuote(request,response);
+    			break;
+ 	    	case "/listDavidQuote":
+    			System.out.println("The action is: listDavidQuote");
+    			listDavidQuote(request,response);
+    			break;
+    			
+    			
+ 	    	case "/insertUserReply":
+    			System.out.println("The action is: insertUserReply");
+    			listDavidQuote(request,response);
+    			break;
+    			
+ 	    	case "/insertDavidReply":
+    			System.out.println("The action is: insertDavidReply");
+    			listDavidQuote(request,response);
+    			break;
+
 	    	}
         	
 	    }
@@ -95,7 +115,82 @@ public class ControlServlet extends HttpServlet {
         	System.out.println(ex.getMessage());
 	    	}
 	    }
-        	
+	    
+	    
+	    
+	    
+	    
+	    private void listUserQuote(HttpServletRequest request, HttpServletResponse response)
+	            throws SQLException, IOException, ServletException {
+	        System.out.println("listUserQuote started: 00000000000000000000000000000000000");
+	        
+	     
+	        List<Quotes> listQuote = QuotesDAO.listUserQuotes();
+	        request.setAttribute("listQuote", listQuote);       
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("listUserQuote.jsp");       
+	        dispatcher.forward(request, response);
+	        
+	        
+	        int id = Integer.parseInt(request.getParameter("id"));
+	        String acceptOrDeny = request.getParameter("acceptOrDeny");
+
+	        boolean isAccepted;
+	       
+	        if (acceptOrDeny.equals("accept")) {
+	        	isAccepted = true;
+	        }
+	        else {
+	        	isAccepted = false;
+	        }
+	        
+	        String Reply = request.getParameter("reply");
+	        System.out.println("Accept or deny quote: " + acceptOrDeny + ". Reply: " + Reply);
+
+	        QuotesDAO.updateUserReply(id, isAccepted, Reply);
+	        
+	        
+	     
+	        System.out.println("listUserQuote finished: 111111111111111111111111111111111111");
+	    }
+	    
+	    private void listDavidQuote(HttpServletRequest request, HttpServletResponse response)
+	            throws SQLException, IOException, ServletException {
+	        System.out.println("listDavidQuote started: 00000000000000000000000000000000000");
+	        
+	     
+	        List<Quotes> listQuote = QuotesDAO.listDavidQuotes();
+	        request.setAttribute("listQuote", listQuote);       
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("listDavidQuote.jsp");       
+	        dispatcher.forward(request, response);
+	     
+	        
+	        
+	        int id = Integer.parseInt(request.getParameter("id"));
+	        String acceptOrDeny = request.getParameter("acceptOrDeny");
+
+	        boolean isAccepted;
+	       
+	        if (acceptOrDeny.equals("accept")) {
+	        	isAccepted = true;
+	        }
+	        else {
+	        	isAccepted = false;
+	        }
+	        
+	        String Reply = request.getParameter("reply");
+	        System.out.println("Accept or deny quote: " + acceptOrDeny + ". Reply: " + Reply);
+
+	        QuotesDAO.updateDavidReply(id, isAccepted, Reply);
+	        
+	        
+	        System.out.println("listDavidQuote finished: 111111111111111111111111111111111111");
+	    }
+	    	
+	    
+	    
+	    
+	    
+	    
 	    private void listUser(HttpServletRequest request, HttpServletResponse response)
 	            throws SQLException, IOException, ServletException {
 	        System.out.println("listUser started: 00000000000000000000000000000000000");
@@ -121,7 +216,9 @@ public class ControlServlet extends HttpServlet {
 	     
 	        System.out.println("listTree finished: 111111111111111111111111111111111111");
 	    }
-	    	        
+
+	    
+	    
 	    private void rootPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{
 	    	System.out.println("root view");
 			request.setAttribute("listUser", userDAO.listAllUsers());
@@ -139,7 +236,7 @@ public class ControlServlet extends HttpServlet {
 	        int userId = userDAO.getUserByEmail(currentUser);
 	        Quotes quote = new Quotes(2, userId);
 	        int quoteID = QuotesDAO.insertQuoteEmpty(quote);
-	        //int userId2 = QuotesDAO.getIDByUserID(userId);
+
 	        System.out.println("insertQuoteEmpty");
 	        System.out.println("I am hereee activityPage");
 	        
@@ -213,11 +310,13 @@ public class ControlServlet extends HttpServlet {
 	   	 	String password = request.getParameter("password");  	 
 	   	 	String creditCardNum = request.getParameter("creditCardNum");  
 	   	 	String confirm = request.getParameter("confirmation");
+	   	 	String role = request.getParameter("role");
+	        
 	   	 	
 	   	 	if (password.equals(confirm)) {
 	   	 		if (!userDAO.checkEmail(email)) {
 		   	 		System.out.println("Registration Successful! Added to database");
-		            user users = new user(email, firstName, lastName, creditCardNum, password);
+		            user users = new user(email, firstName, lastName, creditCardNum, password, role);
 		   	 		userDAO.insert(users);
 		   	 		response.sendRedirect("login.jsp");
 	   	 		}
