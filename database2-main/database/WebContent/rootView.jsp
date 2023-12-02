@@ -39,6 +39,27 @@
             </c:forEach>
         </table>
 	</div>
+	
+	<!-- list all quotes made by users -->
+	<h1>List all Quotes</h1> 
+	
+	<!-- List all trees added by users -->
+	<h1>List all Trees</h1>
+	
+	
+	<!-- part 3 information -->
+	<h1>User Statistics and data</h1>
+	
+	<h2>Big Clients</h2>
+	<h2>Easy Clients</h2>
+	<h2>One Tree Quotes</h2>
+	<h2>Prospective Clients</h2>
+	<h2>Highest Tree</h2>
+	<h2>Overdue Bills</h2>
+	<h2>Bad Clients</h2>
+	<h2>Good Clients</h2>
+	<h2>Client Statistics</h2>
+	
 	</div>
 
 </body>

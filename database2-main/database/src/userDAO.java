@@ -312,7 +312,7 @@ public class userDAO
                         "davidResponse VARCHAR(200)," +
                 		
                         
-                        "schedulestart DATETIME," + 
+                        "schedulestart DATETIME	," + 
                 		"scheduleend DATETIME," + 
                         "FOREIGN KEY (contractorid) references Users(id)," +
                 		"FOREIGN KEY (clientid) references Users(id)" +
@@ -340,7 +340,21 @@ public class userDAO
                         "(7, 'User', 'Six', '6666777788889999', 'user61234', 'user6@gmail.com'), " +
                         "(8, 'User', 'Seven', '7777888899990000', 'user71234', 'user7@gmail.com'), " +
                         "(9, 'User', 'Eight', '8888999900001111', 'user81234', 'user8@gmail.com'), " +
-                        "(10, 'User', 'Nine', '9999000011112222', 'user91234', 'user9@gmail.com')"
+                        "(10, 'User', 'Nine', '9999000011112222', 'user91234', 'user9@gmail.com')" +
+                "INSERT IGNORE INTO Quotes(id, contractorid, clientid) " +
+                        "VALUES " +
+                        "(1, 2, 3), " +
+                        "(2, 2, 4), " +
+                        "(3, 2, 5)" +
+                "INSERT IGNORE INTO Trees(id, quoteid, size, height, distanceFromHouse) " +
+                        "VALUES " +
+                        "(1,1,10,10,10)," +
+                        "(2,1,11,11,11)," +
+                        "(3,1,12,12,12)," +
+                        "(4,2,8,7,6)," +
+                        "(5,2,11,22,33)," +
+                        "(6,2,44,55,66)," +
+                        "(7,3,15,10,5)"
         };
 
 
